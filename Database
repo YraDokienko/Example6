@@ -1,1 +1,186 @@
+CREATE TABLE Customer_registration (
+    id                INTEGER       PRIMARY KEY AUTOINCREMENT,
+    First_name        VARCHAR (50)  NOT NULL,
+    Family_name       VARCHAR (100) NOT NULL,
+    Phone_number      VARCHAR (12)  NOT NULL,
+    Email             VARCHAR (30),
+    Date_Birth        DATE,
+    Date_registration DATE
+);
 
+CREATE TABLE Pizza (
+    id          INTEGER       PRIMARY KEY AUTOINCREMENT,
+    Pizza_name  VARCHAR (30)  NOT NULL,
+    Description VARCHAR (300),
+    Price       INTEGER (5)   NOT NULL
+);
+
+CREATE TABLE Courier (
+    id           INTEGER      PRIMARY KEY AUTOINCREMENT
+                              NOT NULL,
+    First_name   VARCHAR (20) NOT NULL,
+    Family_name  VARCHAR (30) NOT NULL,
+    Phone_number VARCHAR (12) 
+);
+
+CREATE TABLE All_Sales (
+    id                INTEGER       PRIMARY KEY AUTOINCREMENT
+                                    NOT NULL,
+    Date_order        DATE          NOT NULL,
+    Address_Delivery  VARCHAR (200) NOT NULL,
+    Comment_order     VARCHAR (150),
+    Recipient_phone   VARCHAR (12)  NOT NULL,
+    Customer_ID       INTEGER,
+    Courier_ID        INTEGER,
+    Status_payment_ID INTEGER
+);
+
+CREATE TABLE Customer_order (
+    sales_ID INTEGER,
+    pizza_ID INTEGER,
+	quantity INTEGER
+);
+
+CREATE TABLE Provider_product (
+    id            INTEGER      NOT NULL
+                               PRIMARY KEY AUTOINCREMENT,
+    Order_number  INTEGER (15) NOT NULL,
+    Data_delivery DATE,
+    Provider_ID   INTEGER
+);
+
+CREATE TABLE Provider (
+    id      INTEGER      PRIMARY KEY AUTOINCREMENT
+                         NOT NULL,
+    Name    VARCHAR (20) NOT NULL,
+    Type_ID INTEGER
+);
+
+CREATE TABLE Product_type (
+    id   INTEGER PRIMARY KEY AUTOINCREMENT
+                 NOT NULL,
+    Name VARCHAR
+);
+
+CREATE TABLE Payment (
+    id                INTEGER  PRIMARY KEY AUTOINCREMENT
+                               NOT NULL,
+    Date_time_payment DATETIME,
+    Total             INTEGER,
+    Status            BOOLEAN,
+    Type_ID           INTEGER
+);
+
+CREATE TABLE Type_payment (
+    id   INTEGER PRIMARY KEY AUTOINCREMENT
+                 NOT NULL,
+    Type VARCHAR
+);
+
+CREATE TABLE Staff (
+    id              INTEGER      PRIMARY KEY AUTOINCREMENT
+                                 NOT NULL,
+    First_name      VARCHAR (20) NOT NULL,
+    Family_name     VARCHAR (50) NOT NULL,
+    Phone_number    VARCHAR (12) NOT NULL,
+    [Tax-number]    INTEGER (25) NOT NULL,
+    Passport_data   INTEGER (20) NOT NULL,
+    Date_Birth      DATE,
+    Address         VARCHAR,
+    Date_recruiting DATE         NOT NULL,
+    Post_ID         INTEGER
+);
+
+CREATE TABLE [Staff Post] (
+    id    INTEGER      NOT NULL
+                       PRIMARY KEY AUTOINCREMENT,
+    Post  VARCHAR (50) NOT NULL,
+    Wages INTEGER (5) 
+);
+
+INSERT INTO Customer_registration VALUES (1, 'Vova', 'Petrov', '380675554433', 'vovka@gmail.com', '11.11.2000', '15.10.2019');
+INSERT INTO Customer_registration VALUES (2, 'Yra', 'Dokienko', '380957985588', 'yradok@gmail.com', '26.05.1984', '15.10.2019');
+INSERT INTO Customer_registration VALUES (3, 'Ivan', 'Ivanov', '380957776655', 'ivanov@gmail.com', '01.03.2008', '15.10.2019');
+INSERT INTO Customer_registration VALUES (4, 'Елена', 'Мудрая', '380677777777', 'Elena@gmail.com', '05.05.2011', '15.10.2019');
+INSERT INTO Customer_registration VALUES (5, 'Наташа', 'Светлая', '380958888888', 'Nta@gmail.com', '12.03.2006', '15.10.2019');
+   
+INSERT INTO Pizza VALUES (1, 'Деревенская','Вкусная',115);
+INSERT INTO Pizza VALUES (2, 'Мексикано','Вкусная',112);
+INSERT INTO Pizza VALUES (3, 'Грибная','Вкусная',110);
+INSERT INTO Pizza VALUES (4, 'Верона','Вкусная',108);
+INSERT INTO Pizza VALUES (5, 'Гавайская','Вкусная',135);
+INSERT INTO Pizza VALUES (6, 'Острое мясо','Любите острые ощущения',120);
+INSERT INTO Pizza VALUES (7, 'Кантри','Вкусная',108);
+
+INSERT INTO All_Sales VALUES(12,'12.11.2019','Щорса 32, кв 15','третий подьезд','380675566778',2,3,1);
+INSERT INTO All_Sales VALUES(13,'12.11.2019','Довженко 45, кв-120','2-подьезд','380675566666',1,2,1);
+INSERT INTO All_Sales VALUES(14,'12.11.2019','Разумовкого дом 17','с 16-00 до 17-00','380675577777',4,3,1);
+INSERT INTO All_Sales VALUES(15,'12.11.2019','Мечникова дом 57','с 12-00 до 13-00','380675588888',5,1,1);
+INSERT INTO All_Sales VALUES(16,'13.11.2019','Варненская дом 17','1-подьезд','380675500000',3,3,1);
+INSERT INTO All_Sales VALUES(17,'13.11.2019','Базовая 11','мылка 7км','380675599999',5,1,1);
+INSERT INTO All_Sales VALUES(18,'14.11.2019','Довженко 45, кв-120','2-подьезд','380675566666',1,2,1);
+INSERT INTO All_Sales VALUES(19,'15.11.2019','Разумовкого дом 17','с 16-00 до 17-00','380675577777',4,3,1);
+INSERT INTO All_Sales VALUES(20,'15.11.2019','Мечникова дом 57','с 12-00 до 13-00','380675588888',5,2,1);
+
+INSERT INTO Customer_order VALUES(12,2,1);
+INSERT INTO Customer_order VALUES(12,3,1);
+INSERT INTO Customer_order VALUES(13,4,2);
+INSERT INTO Customer_order VALUES(13,5,1);
+INSERT INTO Customer_order VALUES(13,6,2);
+INSERT INTO Customer_order VALUES(13,1,1);
+INSERT INTO Customer_order VALUES(15,3,3);
+INSERT INTO Customer_order VALUES(16,7,2);
+INSERT INTO Customer_order VALUES(16,2,2);
+INSERT INTO Customer_order VALUES(17,5,1);
+INSERT INTO Customer_order VALUES(17,1,1);
+INSERT INTO Customer_order VALUES(17,3,2);
+INSERT INTO Customer_order VALUES(17,4,1);
+INSERT INTO Customer_order VALUES(18,2,3);
+INSERT INTO Customer_order VALUES(19,1,4);
+INSERT INTO Customer_order VALUES(19,1,3);
+INSERT INTO Customer_order VALUES(20,3,4);
+INSERT INTO Customer_order VALUES(20,7,4);
+INSERT INTO Customer_order VALUES(20,6,3);
+
+
+INSERT INTO Courier VALUES (1,'Валерий','Иванов', '380957986677');
+INSERT INTO Courier VALUES (2,'Петя','Петров', '380951111111');
+INSERT INTO Courier VALUES (3,'Жека','Чижов', '380952222222');
+
+-- Меняем настройки для более понятного отображения запросов
+.show
+.headers on
+.mode column
+.show
+
+-- Получение значений таблицы
+SELECT * FROM All_sales;
+SELECT * FROM Pizza;
+SELECT * FROM Customer_order;
+
+-- Изменение цены пиццы по ID.
+UPDATE Pizza SET price = 135 WHERE id = 108;
+
+-- Общее поднятие цен на  15%.
+UPDATE Pizza SET price = price+(price*0.15);
+SELECT * FROM Pizza;
+
+
+--Получаем список Заказов и контактную информацию заказчика. 
+SELECT All_Sales.id, Date_order, Address_Delivery, Comment_order,First_name,Family_name,Phone_number From All_Sales
+	Inner JOIN Customer_registration ON All_sales.Customer_ID = Customer_registration.id;
+
+-- Получаем по номеру заказа (All_Sales.id) список наименование пицц и их стоимость.	
+SELECT All_Sales.id, Date_order, Address_Delivery, Comment_order, Pizza_name, Price From All_Sales
+        Inner JOIN Customer_order ON All_Sales.id = Customer_order.sales_ID 
+        Inner JOIN Pizza ON Customer_order.pizza_ID = Pizza.id
+        WHERE All_Sales.id = 17;
+
+
+-- Получаем общий список заказов с итоовой суммой заказа и количеством заказываемых пицц.
+SELECT All_Sales.id, Date_order, First_name, Family_name,Address_Delivery, Comment_order, SUM(Customer_order.quantity) AS quantity_pizz, SUM(Pizza.Price) AS Total_sum  
+		From All_Sales
+        Inner JOIN Customer_order ON All_Sales.id = Customer_order.sales_ID 
+        Inner JOIN Pizza ON Customer_order.pizza_ID = Pizza.id
+        Inner JOIN Customer_registration ON All_sales.Customer_ID = Customer_registration.id
+        GROUP BY All_Sales.id;
